@@ -1,0 +1,75 @@
+import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.*;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+
+class GuessNumberTest {
+
+    GuessNumber guessNumber;
+    @BeforeEach
+    void setUp() {
+        guessNumber = new GuessNumber();
+    }
+
+    @DisplayName("Test Great User")
+    @Test
+    void greetUser() {
+        String name = "Kaymon";
+        InputStream input = new ByteArrayInputStream(name.getBytes());
+        guessNumber.setIn(input);
+        String result = "\nWell, "+ name +", I am thinking of a number between 1 and 20.";
+        assertEquals(result,guessNumber.greetUser(),"Greet User Failed");
+
+    }
+
+    @DisplayName("Test Low Guess")
+    @Test
+    void makeLowGuess() {
+        guessNumber.setNumber(15);
+        InputStream input = new ByteArrayInputStream("10".getBytes());
+        guessNumber.setIn(input);
+        String result = "Your guess is too low.";
+        assertEquals(result,guessNumber.makeGuess(),"Make low guess failed");
+    }
+
+    @DisplayName("Test High Guess")
+    @Test
+    void makeHighGuess() {
+        guessNumber.setNumber(5);
+        InputStream input = new ByteArrayInputStream("10".getBytes());
+        guessNumber.setIn(input);
+        String result = "Your guess is too high.";
+        assertEquals(result,guessNumber.makeGuess(),"Make High guess failed");
+    }
+
+    @DisplayName("Test Equal Guess")
+    @Test
+    void makeEqualGuess() {
+        guessNumber.setNumber(10);
+        guessNumber.setGuesses(5);
+        guessNumber.setUserName("User");
+        InputStream input = new ByteArrayInputStream("10".getBytes());
+        guessNumber.setIn(input);
+        String result = "Good job, " + guessNumber.getUserName() + "! You guessed my number in " + guessNumber.getGuesses() + " guesses!";
+        assertEquals(result,guessNumber.makeGuess(),"Make High guess failed");
+    }
+
+    @DisplayName("Test Play Again Yes")
+    @Test
+    void doPlayAgainYes() {
+        InputStream input = new ByteArrayInputStream("y".getBytes());
+        guessNumber.setIn(input);
+        guessNumber.doPlayAgain();
+        assertTrue(guessNumber.getPlayAgain(),"Yes play again failed");
+    }
+
+    @DisplayName("Test Play Again No")
+    @Test
+    void doPlayAgainNo() {
+        InputStream input = new ByteArrayInputStream("n".getBytes());
+        guessNumber.setIn(input);
+        guessNumber.doPlayAgain();
+        assertFalse(guessNumber.getPlayAgain(),"No play again failed");
+    }
+
+}
