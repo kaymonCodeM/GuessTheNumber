@@ -130,6 +130,9 @@ public class GuessNumber {
         return guesses;
     }
 
+    public int getTries() {
+        return tries;
+    }
 
     public static void main(String[] args) {
         GuessNumber guessNumber = new GuessNumber();

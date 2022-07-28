@@ -46,12 +46,22 @@ class GuessNumberTest {
     @Test
     void makeEqualGuess() {
         guessNumber.setNumber(10);
-        guessNumber.setGuesses(5);
         guessNumber.setUserName("User");
         InputStream input = new ByteArrayInputStream("10".getBytes());
         guessNumber.setIn(input);
         String result = "Good job, " + guessNumber.getUserName() + "! You guessed my number in " + guessNumber.getGuesses() + " guesses!";
         assertEquals(result,guessNumber.makeGuess(),"Make High guess failed");
+    }
+
+    @DisplayName("Test Guess Exception")
+    @Test
+    void makeGuessException() {
+        guessNumber.setNumber(10);
+        guessNumber.setUserName("User");
+        InputStream input = new ByteArrayInputStream("1.5".getBytes());
+        guessNumber.setIn(input);
+        String result = "Guessed number is invalid... That counts as a guess. You have " + (guessNumber.getTries() - guessNumber.getGuesses()) + " guesses left";
+        assertEquals(result,guessNumber.makeGuess(),"Make guess exception failed");
     }
 
     @DisplayName("Test Play Again Yes")
