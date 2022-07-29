@@ -6,9 +6,9 @@ import java.util.Scanner;
 public class GuessNumber {
 
     private final Random rand = new Random();
+    private final int tries = 6;
 
     private InputStream in = System.in;
-    private final int tries = 6;
     private int number = rand.nextInt(20)+1;
     private int userGuessNumber;
     private int guesses = 0;
@@ -24,9 +24,10 @@ public class GuessNumber {
         while (guesses<=tries && !userName.isEmpty() && playAgain) {
             System.out.println("Take a guess.\n");
 
-            guesses++;
+            //User makes guess
             System.out.println(makeGuess());
 
+            //Correct then ask to play again
             if (this.number==this.userGuessNumber){
                 doPlayAgain();
             }
@@ -57,6 +58,7 @@ public class GuessNumber {
         try {
 
             setUserGuessNumber(Integer.parseInt(userInput.next()));
+            guesses++;
 
             if (this.number == this.userGuessNumber) {
                 result += "Good job, " + userName + "! You guessed my number in " + guesses + " guesses!";
