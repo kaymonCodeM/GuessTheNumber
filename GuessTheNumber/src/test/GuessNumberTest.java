@@ -49,8 +49,8 @@ class GuessNumberTest {
         guessNumber.setUserName("User");
         InputStream input = new ByteArrayInputStream("10".getBytes());
         guessNumber.setIn(input);
-        String result = "Good job, " + guessNumber.getUserName() + "! You guessed my number in " + guessNumber.getGuesses() + " guesses!";
-        assertEquals(result,guessNumber.makeGuess(),"Make High guess failed");
+        String result = "Good job, " + guessNumber.getUserName() + "! You guessed my number in " + 1 + " guesses!";
+        assertEquals(result,guessNumber.makeGuess(),"Make Equal guess failed");
     }
 
     @DisplayName("Test Guess Exception")

@@ -34,6 +34,7 @@ public class GuessNumber {
 
         }
 
+        //User loses
         if (guesses>tries){
             System.out.println("\nToo Many Guesses " + userName + ". You Lose");
         }
