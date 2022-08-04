@@ -37,6 +37,7 @@ public class GuessNumber {
         //User loses
         if (guesses>tries){
             System.out.println("\nToo Many Guesses " + userName + ". You Lose");
+            doPlayAgain();
         }
 
 
@@ -88,7 +89,7 @@ public class GuessNumber {
             } else if ('n'==again) {
                 setPlayAgain(false);
             }else {
-                System.out.println("Nope... y for yes or n for no");
+                System.out.println("\nNope... y for yes or n for no");
                 doPlayAgain();
             }
 
