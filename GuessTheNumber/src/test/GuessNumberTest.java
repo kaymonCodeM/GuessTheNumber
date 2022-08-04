@@ -61,7 +61,7 @@ class GuessNumberTest {
         guessNumber.setUserName("User");
         InputStream input = new ByteArrayInputStream("1.5".getBytes());
         guessNumber.setUserInput(new Scanner(input));
-        String result = "Guessed number is invalid... That counts as a guess. You have " + (guessNumber.getTries() - guessNumber.getGuesses()) + " guesses left";
+        String result = "Guessed number is invalid... That counts as a guess. You have " + 5 + " guesses left";
         assertEquals(result,guessNumber.makeGuess(),"Make guess exception failed");
     }
 
