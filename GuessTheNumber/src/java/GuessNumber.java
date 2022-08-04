@@ -56,8 +56,8 @@ public class GuessNumber {
     public String makeGuess() {
         String result = "";
         try {
-            setUserGuessNumber(this.userInput.nextInt());
             this.guesses++;
+            setUserGuessNumber(Integer.parseInt(userInput.next()));
 
             if (this.number == this.userGuessNumber) {
                 result += "Good job, " + userName + "! You guessed my number in " + guesses + " guesses!";
