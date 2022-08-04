@@ -1,4 +1,4 @@
-import java.io.InputStream;
+
 import java.util.Random;
 import java.util.Scanner;
 
@@ -7,8 +7,7 @@ public class GuessNumber {
 
     private final Random rand = new Random();
     private final int tries = 6;
-
-    private InputStream in = System.in;
+    private Scanner userInput;
     private int number = rand.nextInt(20)+1;
     private int userGuessNumber;
     private int guesses = 0;
@@ -17,6 +16,7 @@ public class GuessNumber {
     private boolean playAgain = true;
 
     public void playGuessNumber(){
+        setUserInput(new Scanner(System.in));
         System.out.println("Hello! What is your name?\n");
         System.out.println(greetUser());
 
@@ -44,9 +44,9 @@ public class GuessNumber {
     }
 
     public String greetUser(){
-        Scanner userInput = new Scanner(in);
+
         try{
-            setUserName(userInput.next());
+            setUserName(this.userInput.next());
             return "\nWell, "+ this.userName +", I am thinking of a number between 1 and 20.";
         }catch (Exception e){
             return "\nUser name is invalid";
@@ -55,12 +55,9 @@ public class GuessNumber {
 
     public String makeGuess() {
         String result = "";
-        Scanner userInput = new Scanner(in);
-
         try {
-
-            setUserGuessNumber(Integer.parseInt(userInput.next()));
-            guesses++;
+            setUserGuessNumber(this.userInput.nextInt());
+            this.guesses++;
 
             if (this.number == this.userGuessNumber) {
                 result += "Good job, " + userName + "! You guessed my number in " + guesses + " guesses!";
@@ -79,20 +76,19 @@ public class GuessNumber {
 
     public void doPlayAgain(){
         System.out.println("Would you like to play again? (y or n)\n");
-        Scanner userInput = new Scanner(in);
         try {
-            char again = userInput.next().charAt(0);
+            char again = this.userInput.next().charAt(0);
             if (again == 'y') {
                 setPlayAgain(true);
                 setGuesses(0);
                 setNumber(rand.nextInt(20) + 1);
             } else if ('n'==again) {
                 setPlayAgain(false);
+                closeScanner();
             }else {
                 System.out.println("\nNope... y for yes or n for no");
                 doPlayAgain();
             }
-
         } catch (Exception e) {
             System.out.println("Very bad input. Good Bye and Good Day");
         }
@@ -114,12 +110,13 @@ public class GuessNumber {
         this.number = number;
     }
 
-    public void setIn(InputStream in) {
-        this.in = in;
-    }
 
     public void setUserGuessNumber(int userGuessNumber) {
         this.userGuessNumber = userGuessNumber;
+    }
+
+    public void setUserInput(Scanner userInput) {
+        this.userInput = userInput;
     }
 
     public String getUserName() {
@@ -136,6 +133,14 @@ public class GuessNumber {
 
     public int getTries() {
         return tries;
+    }
+
+    public Scanner getUserInput() {
+        return userInput;
+    }
+
+    public void closeScanner(){
+        this.userInput.close();
     }
 
     public static void main(String[] args) {

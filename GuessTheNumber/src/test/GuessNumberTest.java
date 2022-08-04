@@ -2,6 +2,7 @@ import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.util.Scanner;
 
 class GuessNumberTest {
 
@@ -16,7 +17,7 @@ class GuessNumberTest {
     void greetUser() {
         String name = "Kaymon";
         InputStream input = new ByteArrayInputStream(name.getBytes());
-        guessNumber.setIn(input);
+        guessNumber.setUserInput(new Scanner(input));
         String result = "\nWell, "+ name +", I am thinking of a number between 1 and 20.";
         assertEquals(result,guessNumber.greetUser(),"Greet User Failed");
 
@@ -27,7 +28,7 @@ class GuessNumberTest {
     void makeLowGuess() {
         guessNumber.setNumber(15);
         InputStream input = new ByteArrayInputStream("10".getBytes());
-        guessNumber.setIn(input);
+        guessNumber.setUserInput(new Scanner(input));
         String result = "Your guess is too low.";
         assertEquals(result,guessNumber.makeGuess(),"Make low guess failed");
     }
@@ -37,7 +38,7 @@ class GuessNumberTest {
     void makeHighGuess() {
         guessNumber.setNumber(5);
         InputStream input = new ByteArrayInputStream("10".getBytes());
-        guessNumber.setIn(input);
+        guessNumber.setUserInput(new Scanner(input));
         String result = "Your guess is too high.";
         assertEquals(result,guessNumber.makeGuess(),"Make High guess failed");
     }
@@ -48,7 +49,7 @@ class GuessNumberTest {
         guessNumber.setNumber(10);
         guessNumber.setUserName("User");
         InputStream input = new ByteArrayInputStream("10".getBytes());
-        guessNumber.setIn(input);
+        guessNumber.setUserInput(new Scanner(input));
         String result = "Good job, " + guessNumber.getUserName() + "! You guessed my number in " + 1 + " guesses!";
         assertEquals(result,guessNumber.makeGuess(),"Make Equal guess failed");
     }
@@ -59,7 +60,7 @@ class GuessNumberTest {
         guessNumber.setNumber(10);
         guessNumber.setUserName("User");
         InputStream input = new ByteArrayInputStream("1.5".getBytes());
-        guessNumber.setIn(input);
+        guessNumber.setUserInput(new Scanner(input));
         String result = "Guessed number is invalid... That counts as a guess. You have " + (guessNumber.getTries() - guessNumber.getGuesses()) + " guesses left";
         assertEquals(result,guessNumber.makeGuess(),"Make guess exception failed");
     }
@@ -68,7 +69,7 @@ class GuessNumberTest {
     @Test
     void doPlayAgainYes() {
         InputStream input = new ByteArrayInputStream("y".getBytes());
-        guessNumber.setIn(input);
+        guessNumber.setUserInput(new Scanner(input));
         guessNumber.doPlayAgain();
         assertTrue(guessNumber.getPlayAgain(),"Yes play again failed");
     }
@@ -77,9 +78,15 @@ class GuessNumberTest {
     @Test
     void doPlayAgainNo() {
         InputStream input = new ByteArrayInputStream("n".getBytes());
-        guessNumber.setIn(input);
+        guessNumber.setUserInput(new Scanner(input));
         guessNumber.doPlayAgain();
         assertFalse(guessNumber.getPlayAgain(),"No play again failed");
     }
 
+    @AfterEach
+    void tearDown(){
+        if (guessNumber.getUserInput()!=null){
+            guessNumber.closeScanner();
+        }
+    }
 }
