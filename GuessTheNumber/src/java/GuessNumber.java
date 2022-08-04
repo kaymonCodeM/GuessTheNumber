@@ -24,18 +24,18 @@ public class GuessNumber {
         while (!userName.isEmpty() && playAgain) {
             System.out.println("Take a guess.\n");
 
-            //User makes guess
-            System.out.println(makeGuess());
-
-            //Correct then ask to play again
-            if (this.number==this.userGuessNumber){
-                doPlayAgain();
-            }
 
             //User loses
             if (guesses==tries){
                 System.out.println("\nToo Many Guesses " + userName + ". You Lose");
                 doPlayAgain();
+            }else {
+                //User makes guess
+                System.out.println(makeGuess());
+                //Correct then ask to play again
+                if (this.number==this.userGuessNumber){
+                    doPlayAgain();
+                }
             }
 
         }
