@@ -21,7 +21,7 @@ public class GuessNumber {
         System.out.println(greetUser());
 
 
-        while (guesses<=tries && !userName.isEmpty() && playAgain) {
+        while (!userName.isEmpty() && playAgain) {
             System.out.println("Take a guess.\n");
 
             //User makes guess
@@ -32,12 +32,12 @@ public class GuessNumber {
                 doPlayAgain();
             }
 
-        }
+            //User loses
+            if (guesses==tries){
+                System.out.println("\nToo Many Guesses " + userName + ". You Lose");
+                doPlayAgain();
+            }
 
-        //User loses
-        if (guesses>tries){
-            System.out.println("\nToo Many Guesses " + userName + ". You Lose");
-            doPlayAgain();
         }
 
 
